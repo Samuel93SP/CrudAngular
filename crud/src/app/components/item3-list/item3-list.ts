@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { Item1Service } from '../../services/item1.service';
 import { Item2Service } from '../../services/item2.service';
 import { Item3Service } from '../../services/item3.service';
-import { Item1 } from '../../models/item1.model';
-import { Item2 } from '../../models/item2.model';
-import { Item3 } from '../../models/item3.model';
+import { Doctors } from '../../models/item1.model';
+import { Patients } from '../../models/item2.model';
+import {Appointments} from '../../models/item3.model';
 
 @Component({
   selector: 'app-item3-list',
@@ -16,10 +16,10 @@ import { Item3 } from '../../models/item3.model';
   styleUrl: './item3-list.css'
 })
 export class Item3ListComponent implements OnInit {
-  item1s: Item1[] = [];
-  item2s: Item2[] = [];
-  items: Item3[] = [];
-  form: Item3 = { item1Id: '', item2Id: '', calificacion: 0 };
+  item1s: Doctors[] = [];
+  item2s: Patients[] = [];
+  items: Appointments[] = [];
+  form: Appointments = { doctorId: '', patientId: '', dateTime: '' };
   editingId: string | null = null;
   submitted = false;
 
@@ -37,16 +37,16 @@ export class Item3ListComponent implements OnInit {
   }
 
   getItem1Nombre(id: string) {
-    return this.item1s.find(i => i.id === id)?.nombre || '';
+    return this.item1s.find(i => i.id === id)?.name || '';
   }
 
   getItem2Nombre(id: string) {
-    return this.item2s.find(i => i.id === id)?.nombre || '';
+    return this.item2s.find(i => i.id === id)?.name || '';
   }
 
   save() {
     this.submitted = true;
-    if (!this.form.item1Id || !this.form.item2Id || !this.form.calificacion) return;
+    if (!this.form.doctorId || !this.form.patientId || !this.form.dateTime) return;
     if (this.editingId) {
       this.svc3.update(this.editingId, this.form).then(() => this.reset());
     } else {
@@ -54,17 +54,17 @@ export class Item3ListComponent implements OnInit {
     }
   }
 
-  edit(item: Item3) {
+  edit(item: Appointments) {
     this.editingId = item.id!;
-    this.form = { item1Id: item.item1Id, item2Id: item.item2Id, calificacion: item.calificacion };
+    this.form = { doctorId: item.doctorId, patientId: item.patientId, dateTime: item.dateTime };
   }
 
   delete(id: string) {
-    if (confirm('¿Eliminar?')) this.svc3.delete(id);
+    if (confirm('¿Delete?')) this.svc3.delete(id);
   }
 
   reset() {
-    this.form = { item1Id: '', item2Id: '', calificacion: 0 };
+    this.form = { doctorId: '', patientId: '', dateTime: '' };
     this.editingId = null;
     this.submitted = false;
   }

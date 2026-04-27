@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Item2Service } from '../../services/item2.service';
-import { Item2 } from '../../models/item2.model';
+import { Patients } from '../../models/item2.model';
 
 @Component({
   selector: 'app-item2-list',
@@ -12,8 +12,8 @@ import { Item2 } from '../../models/item2.model';
   styleUrl: './item2-list.css'
 })
 export class Item2ListComponent implements OnInit {
-  items: Item2[] = [];
-  form: Item2 = { nombre: '', descripcion: '' };
+  items: Patients[] = [];
+  form: Patients = { name: '', email: '' };
   editingId: string | null = null;
   submitted = false;
 
@@ -28,7 +28,7 @@ export class Item2ListComponent implements OnInit {
 
   save() {
     this.submitted = true;
-    if (!this.form.nombre || !this.form.descripcion) return;
+    if (!this.form.name || !this.form.email) return;
     if (this.editingId) {
       this.svc.update(this.editingId, this.form).then(() => this.reset());
     } else {
@@ -36,17 +36,17 @@ export class Item2ListComponent implements OnInit {
     }
   }
 
-  edit(item: Item2) {
+  edit(item: Patients) {
     this.editingId = item.id!;
-    this.form = { nombre: item.nombre, descripcion: item.descripcion };
+    this.form = { name: item.name, email: item.email };
   }
 
   delete(id: string) {
-    if (confirm('¿Eliminar?')) this.svc.delete(id);
+    if (confirm('¿Delete?')) this.svc.delete(id);
   }
 
   reset() {
-    this.form = { nombre: '', descripcion: '' };
+    this.form = { name: '', email: '' };
     this.editingId = null;
     this.submitted = false;
   }

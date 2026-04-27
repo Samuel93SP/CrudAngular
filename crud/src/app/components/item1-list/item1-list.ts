@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Item1Service } from '../../services/item1.service';
-import { Item1 } from '../../models/item1.model';
+import { Doctors } from '../../models/item1.model';
 
 @Component({
   selector: 'app-item1-list',
@@ -12,8 +12,8 @@ import { Item1 } from '../../models/item1.model';
   styleUrl: './item1-list.css'
 })
 export class Item1ListComponent implements OnInit {
-  items: Item1[] = [];
-  form: Item1 = { nombre: '', correo: '' };
+  items: Doctors[] = [];
+  form: Doctors = { name: '', speciality: '' };
   editingId: string | null = null;
   submitted = false;
 
@@ -28,7 +28,7 @@ export class Item1ListComponent implements OnInit {
 
   save() {
     this.submitted = true;
-    if (!this.form.nombre || !this.form.correo) return;
+    if (!this.form.name || !this.form.speciality) return;
     if (this.editingId) {
       this.svc.update(this.editingId, this.form).then(() => this.reset());
     } else {
@@ -36,9 +36,9 @@ export class Item1ListComponent implements OnInit {
     }
   }
 
-  edit(item: Item1) {
+  edit(item: Doctors) {
     this.editingId = item.id!;
-    this.form = { nombre: item.nombre, correo: item.correo };
+    this.form = { name: item.name, speciality: item.speciality };
   }
 
   delete(id: string) {
@@ -46,7 +46,7 @@ export class Item1ListComponent implements OnInit {
   }
 
   reset() {
-    this.form = { nombre: '', correo: '' };
+    this.form = { name: '', speciality: '' };
     this.editingId = null;
     this.submitted = false;
   }

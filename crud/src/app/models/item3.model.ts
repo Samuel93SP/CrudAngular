@@ -1,6 +1,6 @@
-export interface Item3 {
+export interface Appointments {
   id?: string;
-  item1Id: string;
-  item2Id: string;
-  calificacion: number;
+  doctorId: string;
+  patientId: string;
+  dateTime: string;
 }

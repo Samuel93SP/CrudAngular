@@ -1,5 +1,5 @@
-export interface Item1 {
+export interface Doctors {
   id?: string;
-  nombre: string;
-  correo: string;
+  name: string;
+  speciality: string;
 }

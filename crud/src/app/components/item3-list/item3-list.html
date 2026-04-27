@@ -1,72 +1,70 @@
 <div class="container mt-4">
   <div class="row">
 
-    <!-- FORMULARIO IZQUIERDA -->
     <div class="col-md-4">
-      <h4 class="mb-3">{{ editingId ? 'Editar' : 'Nueva' }} Calificación</h4>
+      <h4 class="mb-3">{{ editingId ? 'Edit' : 'Add' }} Appointments</h4>
 
       <div class="mb-3">
-        <label class="form-label">Item1</label>
-        <select [(ngModel)]="form.item1Id" class="form-select">
-          <option value="">-- Selecciona Item1 --</option>
+        <label class="form-label">Doctors</label>
+        <select [(ngModel)]="form.doctorId" class="form-select">
+          <option value="">-- Select Doctors --</option>
           @for (i of item1s; track i.id) {
-            <option [value]="i.id">{{ i.nombre }}</option>
+            <option [value]="i.id">{{ i.name }}</option>
           }
         </select>
-        @if (submitted && !form.item1Id) {
-          <span class="text-danger">Requerido</span>
+        @if (submitted && !form.doctorId) {
+          <span class="text-danger">Required</span>
         }
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Item2</label>
-        <select [(ngModel)]="form.item2Id" class="form-select">
-          <option value="">-- Selecciona Item2 --</option>
+        <label class="form-label">Patients</label>
+        <select [(ngModel)]="form.patientId" class="form-select">
+          <option value="">-- Select Patient --</option>
           @for (i of item2s; track i.id) {
-            <option [value]="i.id">{{ i.nombre }}</option>
+            <option [value]="i.id">{{ i.name }}</option>
           }
         </select>
-        @if (submitted && !form.item2Id) {
-          <span class="text-danger">Requerido</span>
+        @if (submitted && !form.patientId) {
+          <span class="text-danger">Required</span>
         }
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Calificación</label>
-        <input [(ngModel)]="form.calificacion" class="form-control" placeholder="Calificación" type="number" min="0" max="10" />
-        @if (submitted && !form.calificacion) {
-          <span class="text-danger">La calificación es requerida</span>
+        <label class="form-label">Date & Time</label>
+        <input [(ngModel)]="form.dateTime" class="form-control" placeholder="2026-04-27T017:32"/>
+        @if (submitted && !form.dateTime) {
+          <span class="text-danger">Appointment is required</span>
         }
       </div>
 
       <div class="d-flex gap-2">
-        <button (click)="save()" class="btn btn-primary">{{ editingId ? 'Actualizar' : 'Agregar' }}</button>
-        <button (click)="reset()" class="btn btn-secondary">Limpiar</button>
+        <button (click)="save()" class="btn btn-primary">{{ editingId ? 'Update' : 'Add' }}</button>
+        <button (click)="reset()" class="btn btn-outline-secondary">Clear</button>
       </div>
     </div>
 
-    <!-- LISTA DERECHA -->
     <div class="col-md-8">
-      <h4 class="mb-3">Lista de Calificaciones</h4>
-      <table class="table table-bordered table-hover">
-        <thead class="table-dark">
+      <h4 class="mb-3">Appointments list</h4>
+      <table class="table">
+        <thead class="letter-dark">
         <tr>
-          <th>Item1</th>
-          <th>Item2</th>
-          <th>Calificación</th>
+          <th>Doctors</th>
+          <th>Patients</th>
+          <th>Date & Time</th>
           <th>Acciones</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="table-light">
           @for (item of items; track item.id) {
             <tr>
-              <td>{{ getItem1Nombre(item.item1Id) }}</td>
-              <td>{{ getItem2Nombre(item.item2Id) }}</td>
-              <td>{{ item.calificacion }}</td>
+              <td>{{ getItem1Nombre(item.doctorId) }}</td>
+              <td>{{ getItem2Nombre(item.patientId) }}</td>
+              <td>{{ item.dateTime }}</td>
               <td>
                 <div class="d-flex gap-2">
-                  <button (click)="edit(item)" class="btn btn-warning btn-sm">Editar</button>
-                  <button (click)="delete(item.id!)" class="btn btn-danger btn-sm">Eliminar</button>
+                  <button (click)="edit(item)" class="btn btn-outline-primary">Editar</button>
+                  <button (click)="delete(item.id!)" class="btn btn-outline-danger">Eliminar</button>
                 </div>
               </td>
             </tr>

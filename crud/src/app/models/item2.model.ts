@@ -1,5 +1,5 @@
-export interface Item2 {
+export interface Patients {
   id?: string;
-  nombre: string;
-  descripcion: string;
+  name: string;
+  email: string;
 }
